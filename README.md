@@ -10,7 +10,7 @@ For example, three input rows with keys `catalog-a/001`, `catalog-a/001`, `catal
 2. Inspect the nodes, then execute the manual workflow. The validator should return two items, each containing `import_key`.
 3. In **Synthetic rows**, change `DEMONSTRATE_CONFLICT` to `true`. Execute again: validation should stop with the conflicting row positions.
 
-This repository is AI-assisted and uses synthetic examples. The JavaScript source has automated checks in Node.js; n8n import/execution and a real Google Sheets write have not yet been verified. Report your n8n version and a synthetic reproducer if importing fails. No client outcomes or savings are claimed.
+This repository is AI-assisted and uses synthetic examples. The JavaScript source has 11 automated checks in Node.js. Synthetic fixtures were also imported and executed through the n8n 2.43.8 CLI in disposable Docker containers: two valid outputs, a blocked conflicting payload, and a blocked blank key. See [runtime verification](verification.md) for the exact scope and results. A live Google Sheets write, n8n Cloud run and browser import have not been verified. Report your n8n version and a synthetic reproducer if importing fails. No client outcomes or savings are claimed.
 
 ## Connect your own source and destination
 

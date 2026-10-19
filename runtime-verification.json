@@ -1,0 +1,43 @@
+{
+  "tested_on": "2026-10-19",
+  "n8n_version": "2.43.8",
+  "image": "n8nio/n8n@sha256:a18edcf018198b33b5488fb47ededafe11e0b10d28f65b9535b7c447c9ce3b2c",
+  "scope": "Synthetic workflow import and CLI execution in disposable Docker containers; test-only workflow IDs added; guard source unchanged. No live Sheets write, n8n Cloud session or browser import test.",
+  "network": "none for execution containers",
+  "inputs": "Synthetic rows only; no service credentials",
+  "source_sha256": {
+    "guard.js": "b810fcde77b444d8fe4fb2a4d05ffeefec1f713e2cada231cf56fb4548ab9045",
+    "workflow.json": "fc9cbd6b45d76051019f7cbac8dd8bab0235895735580c9e3988a45a05c4d2a6"
+  },
+  "cases": [
+    {
+      "case": "identical duplicate plus distinct composite source key",
+      "workflow_id": "affiliateSuccess",
+      "cli_exit": 0,
+      "execution_status": "success",
+      "finished": true,
+      "output_count": 2,
+      "output_keys": [
+        "[\"catalog-a\",\"001\"]",
+        "[\"catalog-b\",\"001\"]"
+      ],
+      "paired_items": [
+        0,
+        2
+      ]
+    },
+    {
+      "case": "same key with conflicting payload",
+      "workflow_id": "affiliateConflict",
+      "cli_exit": 1,
+      "observed_error": "Import blocked (1 issue(s)). rows 1 and 4: same key, conflicting payload [line 47]"
+    },
+    {
+      "case": "blank key",
+      "workflow_id": "affiliateBlank",
+      "cli_exit": 1,
+      "observed_error": "Import blocked (1 issue(s)). row 1: keys must be nonempty strings without surrounding whitespace [line 47]"
+    }
+  ],
+  "cli_note": "Deprecated --file did not execute and still returned exit0. Tests use import:workflow followed by execute --id; success verified from actual result data, not exit code alone."
+}
